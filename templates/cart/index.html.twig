@@ -46,7 +46,8 @@
 </form>
 
 <form action="checkout" method="post">
-    <button>Paiement</button>
+    <input type="hidden" name="total" value="{{ total}}">
+    <button type="submit">Paiement</button>
 </form>
 {% else %}
 <p>Surprise, c'est vide !</p>
