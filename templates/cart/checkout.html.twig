@@ -4,10 +4,10 @@
 <script src="https://js.stripe.com/v3/"></script>
 
 <script>
-    var stripe = Stripe('pk_test_Q9cyaZqZCAfKUVg4yoDzubii00mUU9gHY0');
+    var stripe = Stripe($_ENV['STRIPE_PRIVATE_KEY']);
     var sessionId = "{{ sessionId }}";
 
-    console.log(sessionId)
+    //console.log(sessionId)
     stripe.redirectToCheckout({
         sessionId: sessionId
     }).then(function(result) {});

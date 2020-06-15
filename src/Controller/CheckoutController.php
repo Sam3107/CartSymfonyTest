@@ -28,7 +28,7 @@ class CheckoutController extends AbstractController
     public function checkout(Request $request)
     {
         
-        Stripe::setApiKey('sk_test_iVIe1TqDZbaAebA8IvzYbJoS005YDDkaXE');
+        Stripe::setApiKey($_ENV['STRIPE_PRIVATE_KEY']);
 /*
         $sessionData = [
             'payment_method_types' => ['card'],
