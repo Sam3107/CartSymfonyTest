@@ -4,13 +4,12 @@
 <script src="https://js.stripe.com/v3/"></script>
 
 <script>
-    var stripe = Stripe('{{ stripe_public_key }}');
+    var stripe = Stripe('pk_test_Q9cyaZqZCAfKUVg4yoDzubii00mUU9gHY0');
+    var sessionId = "{{ sessionId }}";
 
+    console.log(sessionId)
     stripe.redirectToCheckout({
-        sessionId: '{{ CHECKOUT_SESSION_ID }}'
-    }).then(function(result) {
-
-
-    });
+        sessionId: sessionId
+    }).then(function(result) {});
 </script>
 {% endblock %}

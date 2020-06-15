@@ -4,13 +4,15 @@ namespace App\Controller;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
 use App\Service\Cart\CartService;
+use App\Repository\BookRepository;
+use Knp\Component\Pager\PaginatorInterface;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+require_once('C:\CartSymfonyTest\Livre\vendor\stripe\stripe-php/init.php');
 class CheckoutController extends AbstractController
 {
     private $session;
@@ -25,13 +27,14 @@ class CheckoutController extends AbstractController
      */
     public function checkout(Request $request)
     {
+        
         Stripe::setApiKey('sk_test_iVIe1TqDZbaAebA8IvzYbJoS005YDDkaXE');
 /*
         $sessionData = [
             'payment_method_types' => ['card'],
             'line_items' => [],
             'success_url' => 'http://localhost:8000/success?session_id={CHECKOUT_SESSION_ID}',
-            'cancel_url' => 'http://localhost:8000/cart_index',
+            'cancel_url' => http://localhost':8000/cart_index',
         ];
         
         foreach ($this->session->get('panier') as $item) {
@@ -51,17 +54,39 @@ class CheckoutController extends AbstractController
 $sessionData = [
     'payment_method_types' => ['card'],
     'line_items' => [[
-    'price' => $_POST['total'],
+    'name' => 'total' ,  
+    'amount' => ($_POST['total'])*100,
+    'currency' => 'eur',
     'quantity' => 1,
     ]],
-    //'mode' => 'payment',
-    'success_url' => 'https://example.com/success?session_id={CHECKOUT_SESSION_ID}',
-    'cancel_url' => 'https://example.com/cancel',
+    'mode' => 'payment',
+    'success_url' => 'http://localhost:8000/success?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => 'http://localhost:8000/panier',
 ];
+
+
         $session = Session::create($sessionData);
+        
         return $this->render('cart/checkout.html.twig', [
 
-            'sessionId' => $session->id
+            'sessionId' => $session['id']
+        
         ]);
+    
     }
+
+    /**
+     * @Route("/vider", name="vider")
+     */
+
+    public function emptyCart(PaginatorInterface $paginator, Request $request, BookRepository $bookRepository){
+        $session = session_destroy();
+        return $this->render('book/index.html.twig', [
+            // 'books' => "tous les books"
+            'books' => $paginator->paginate($bookRepository->findAll(),$request->query->getInt('page', 1), 6)
+        ]);
+
+    }
+
 }
+

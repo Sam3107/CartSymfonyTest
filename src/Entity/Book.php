@@ -77,6 +77,11 @@ class Book
      */
     private $slug;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $authorbiographie;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -222,6 +227,18 @@ class Book
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getAuthorbiographie(): ?string
+    {
+        return $this->authorbiographie;
+    }
+
+    public function setAuthorbiographie(string $authorbiographie): self
+    {
+        $this->authorbiographie = $authorbiographie;
 
         return $this;
     }

@@ -11,9 +11,13 @@
         <p>{{book.author}}</p>
         <p>{{book.coAuthor}}</p>
         <p>{{book.nbPage}} pages </p>
-        <a href="#" class="btn btn-primary">Commander</a>
+        <a href="{{ path('cart_add', {'id': book.id})  }}" class="btn btn-success float-left">
+            <i class="fas fa-shopping-cart mr-1"></i> Commander
+        </a>
     </div>
 </div>
+
+<br><br>
 <div class="container">
     <h1>{{ book.title }}</h1>
 
@@ -58,9 +62,7 @@
                 </div>
 
             </div>
-            <p>Lorem ipsum dolor sit, amet consectetur bookipisicing elit. Asperiores obcaecati beatae hic sint? Cupiditate iste quia veritatis culpa, sunt temporibus.</p>
-            <p>Sint, accusantium sapiente. Totam, accusamus magnam deleniti perspiciatis maiores harum est nemo possimus iure autem nihil consequuntur eos culpa rerum.</p>
-            <p>Soluta consequuntur corrupti book natus. Explicabo similique nobis sit itaque? Nihil officia quas impedit labore minima, amet perferendis totam quae.</p>
+            <p>{{ book.authorbiographie }}</p>
         </div>
     </div>
 </div>
